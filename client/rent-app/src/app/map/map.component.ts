@@ -26,7 +26,7 @@ export class MapComponent implements OnInit {
 
 
   ngOnInit() {
-  	this.makeMap()
+  	this.createMap()
   }
 
 makeMap () {
@@ -59,6 +59,29 @@ makeMap () {
             console.log('done')
       	})
    }
+
+   createMap() {
+      var width = 960;
+      var height = 600;
+      
+      var svg = this.d3.select( "body" )
+        .append( "svg" )
+        .attr( "width", width )
+        .attr( "height", height );
+      var path = this.d3.geoPath();
+      this.http.get('https://d3js.org/us-10m.v1.json').subscribe(response => {
+      var toDraw = topojson.feature(response.json(), response.json().objects.counties).features
+        svg.append("g")
+            .attr("class", "counties")
+          .selectAll("path")
+          .data(toDraw)
+          .enter().append("path")
+            .attr("d", path);
+        svg.append("path")
+            .attr("class", "county-borders")
+            .attr("d", path(topojson.mesh(response.json(), response.json().counties, function(a, b) { return a !== b; })))
+  });
+}
 
 }
 
