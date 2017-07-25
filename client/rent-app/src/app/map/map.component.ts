@@ -30,34 +30,35 @@ export class MapComponent implements OnInit {
   }
 
 makeMap () {
-	var width = 1200
-    var height = 1200;
+    this.http.get('https://raw.githubusercontent.com/jgoodall/us-maps/master/geojson/state.geo.json').subscribe(response => {
+    	  var width = 1500
+        var height = 1500;
 
-var svg = this.d3.select( "body" )
-  .append( "svg" )
-  .attr( "width", width )
-  .attr( "height", height );
+        var svg = this.d3.select( "body" )
+          .append( "svg" )
+          .attr( "width", width )
+          .attr( "height", height );
 
-var g = svg.append( "g" );
+        var g = svg.append( "g" );
 
-var albersProjection = this.d3.geoAlbers()
-  .scale( 2000 )
-  .rotate( [71.057,0] )
-  .center( [0, 42.313] )
-  .translate( [width/2,height/2] );
+        var albersProjection = this.d3.geoAlbers()
+          .scale( 500 )
+          .rotate( [90,0] )
+          .center( [0, 42.313] )
+          .translate( [width/2,height/2] );
 
-var geoPath = this.d3.geoPath()
-    .projection( albersProjection );
-this.http.get('https://raw.githubusercontent.com/jgoodall/us-maps/master/geojson/state.geo.json').subscribe(response => {
-console.log(response.json().features)
-g.selectAll( "path" )
-  .data(response.json().features)
-  .enter()
-  .append( "path" )
-  .attr( "fill", "#ccc" )
-  .attr( "d", geoPath )
-  		})
-	}
+        var geoPath = this.d3.geoPath()
+          .projection( albersProjection );
+          console.log(topojson.topology(response.json().features))
+          g.selectAll( "path" )
+            .data(response.json().features)
+            .enter()
+            .append( "path" )
+            .attr( "fill", "#FF0000" )
+            .attr( "d", geoPath )
+            console.log('done')
+      	})
+   }
 
 }
 
