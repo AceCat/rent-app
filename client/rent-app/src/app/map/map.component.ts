@@ -31,8 +31,8 @@ export class MapComponent implements OnInit {
 
 makeMap () {
     this.http.get('https://raw.githubusercontent.com/storiesofsolidarity/us-data/gh-pages/geography/zcta/Illinois.topo.json').subscribe(response => {
-    	  var width = 1500
-        var height = 1500;
+    	  var width = 960
+        var height = 700;
 
         var svg = this.d3.select( "body" )
           .append( "svg" )
@@ -42,10 +42,12 @@ makeMap () {
         var g = svg.append( "g" );
 
         var albersProjection = this.d3.geoAlbers()
-          .scale( 8000 )
+          .scale( 6000 )
           .rotate( [90,0] )
-          .center( [0, 42.313] )
+          .center( [4, 40] )
           .translate( [width/2,height/2] );
+
+         console.log(response.json())
 
         var geoPath = this.d3.geoPath()
           .projection( albersProjection );
@@ -56,7 +58,12 @@ makeMap () {
             .attr( "fill", "#FF0000" )
             .attr( "d", geoPath )
             .attr( "class", "zip-borders")
+            .attr( 'id', function(d, i){
+              return response.json().objects['Illinois.geo'].geometries[i].id
+            })
             console.log('done')
+
+
       	})
    }
 
