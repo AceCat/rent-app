@@ -2,7 +2,7 @@
 
 
 
-.state-borders {
+.zip-borders {
   fill: black;
   stroke: #fff;
   stroke-width: 0.5px;
@@ -10,6 +10,6 @@
   stroke-linecap: round;
   pointer-events: none;
 }
-.state-borders :hover {
+.zip-borders :hover {
   fill: red;
 }

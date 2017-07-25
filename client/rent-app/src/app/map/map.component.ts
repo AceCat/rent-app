@@ -26,11 +26,11 @@ export class MapComponent implements OnInit {
 
 
   ngOnInit() {
-  	this.createMap()
+  	this.makeMap()
   }
 
 makeMap () {
-    this.http.get('https://raw.githubusercontent.com/jgoodall/us-maps/master/geojson/state.geo.json').subscribe(response => {
+    this.http.get('https://raw.githubusercontent.com/storiesofsolidarity/us-data/gh-pages/geography/zcta/Illinois.topo.json').subscribe(response => {
     	  var width = 1500
         var height = 1500;
 
@@ -42,20 +42,20 @@ makeMap () {
         var g = svg.append( "g" );
 
         var albersProjection = this.d3.geoAlbers()
-          .scale( 500 )
+          .scale( 8000 )
           .rotate( [90,0] )
           .center( [0, 42.313] )
           .translate( [width/2,height/2] );
 
         var geoPath = this.d3.geoPath()
           .projection( albersProjection );
-          console.log(topojson.topology(response.json().features))
           g.selectAll( "path" )
-            .data(response.json().features)
+            .data(topojson.feature(response.json(), response.json().objects["Illinois.geo"]).features)
             .enter()
             .append( "path" )
             .attr( "fill", "#FF0000" )
             .attr( "d", geoPath )
+            .attr( "class", "zip-borders")
             console.log('done')
       	})
    }
@@ -69,26 +69,67 @@ makeMap () {
         .attr( "width", width )
         .attr( "height", height );
       var path = this.d3.geoPath();
-      this.http.get('https://d3js.org/us-10m.v1.json').subscribe(response => {
-        var toDraw = topojson.feature(response.json(), response.json().objects.states).features
+      this.http.get('https://raw.githubusercontent.com/storiesofsolidarity/us-data/gh-pages/geography/zcta/Alabama.topo.json').subscribe(response => {
+        var toDraw = topojson.feature(response.json(), response.json().objects["Alabama.geo"]).features
+                console.log(toDraw)
+
+        // svg.append("g")
+        //     .attr("class", "states")
+        //   .selectAll("path")
+        //   .data(toDraw)
+        //  .enter().append("path")
+        //    .attr("d", path);
+        // svg.append("path")
+        //     .attr("class", "state-borders")
+        //     .attr("d", path(topojson.mesh(response.json(), response.json().states, function(a, b) { return a !== b; })))
+
+
+
+
+
+
+
+
+
+
         var g = svg.append("g")
             .attr("class", "states")
-
-        g.selectAll("path")
+            .selectAll("path")
             .data(toDraw)
             .enter() 
             .append("path")
             .attr("class", "state-borders")
             .attr("d", path)
-            .on('click', function(){
-              console.log("clicked")
-            });
-        // svg.append("path")
-        //     .attr("class", "county-borders")
-        //     .attr("d", path(topojson.mesh(response.json(), response.json().counties, function(a, b) { return a !== b; })))
+            ;
+
+
+            this.d3.selectAll("path").on('click', function(){
+              console.log('clicked')
+            })
   });
 }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
