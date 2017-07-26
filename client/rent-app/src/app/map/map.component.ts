@@ -41,10 +41,7 @@ makeMap () {
           .attr( "height", height );
 
         var g = svg.append( "g" )
-        .attr('class', 'state')
-        .on('click', function() {
-        	console.log('g firing')
-        });
+          .attr('class', 'state');
 
         var albersProjection = this.d3.geoAlbers()
           .scale( 6000 )
@@ -56,25 +53,23 @@ makeMap () {
 
         var geoPath = this.d3.geoPath()
           .projection( albersProjection );
-          
-        var zips = g.selectAll( "path" )
+
+          g.selectAll( "path" )
             .data(topojson.feature(response.json(), response.json().objects["Illinois.geo"]).features)
             .enter()
             .append( "path" )
-            .attr( "fill", "#FF0000" )
             .attr( "d", geoPath )
             .attr( "class", "zip-borders")
+            .attr( 'fill', '#688C5B')
             .attr( 'id', function(d, i){
               return response.json().objects['Illinois.geo'].geometries[i].id
-            });
-
-            console.log(zips)
-
-            zips.on('click', function() {
-            	console.log('firing')
-            	// self.d3.select(this)
             })
+            .on('click', function(d, i){
+                console.log(response.json().objects['Illinois.geo'].geometries[i].id)
+              })
+            
             console.log('done')
+
       	})
    }
 
