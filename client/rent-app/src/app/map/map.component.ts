@@ -15,6 +15,9 @@ declare let topojson: any;
 export class MapComponent implements OnInit {
 	private d3: D3; // <-- Define the private member which will hold the d3 reference
 	private parentNativeElement: any;
+  state = {
+    name: ""
+  };
 
 
   constructor(private http: Http, private router: Router, element: ElementRef, d3Service: D3Service) { // <-- pass the D3 Service into the constructor
@@ -26,12 +29,13 @@ export class MapComponent implements OnInit {
 
 
   ngOnInit() {
-  	this.makeMap()
+  	
   }
+
 
 makeMap () {
 	var self = this
-    this.http.get('https://raw.githubusercontent.com/storiesofsolidarity/us-data/gh-pages/geography/zcta/Illinois.topo.json').subscribe(response => {
+    this.http.get('https://raw.githubusercontent.com/storiesofsolidarity/us-data/gh-pages/geography/zcta/'+ this.state.name +'.topo.json').subscribe(response => {
     	  var width = 960
         var height = 700;
 
@@ -47,7 +51,8 @@ makeMap () {
           .scale( 6000 )
           .rotate( [90,0] )
           .center( [4, 40] )
-          .translate( [width/2,height/2] );
+          .translate( [width/2,height/2] )
+          ;
 
          console.log(response.json())
 
@@ -55,20 +60,20 @@ makeMap () {
           .projection( albersProjection );
 
           g.selectAll( "path" )
-            .data(topojson.feature(response.json(), response.json().objects["Illinois.geo"]).features)
+            .data(topojson.feature(response.json(), response.json().objects[this.state.name + ".geo"]).features)
             .enter()
             .append( "path" )
             .attr( "d", geoPath )
             .attr( "class", "zip-borders")
             .attr( 'fill', '#688C5B')
             .attr( 'id', function(d, i){
-              return response.json().objects['Illinois.geo'].geometries[i].id
+              return response.json().objects[self.state.name + ".geo"].geometries[i].id
             })
             .on('click', function(d, i){
-               self.router.navigate(['/view', response.json().objects['Illinois.geo'].geometries[i].id])
-              })
-            
+               self.router.navigate(['/view', response.json().objects[self.state.name + ".geo"].geometries[i].id])
+              })            
             console.log('done')
+            
 
       	})
    }
