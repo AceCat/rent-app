@@ -30,6 +30,7 @@ export class MapComponent implements OnInit {
   }
 
 makeMap () {
+	var self = this
     this.http.get('https://raw.githubusercontent.com/storiesofsolidarity/us-data/gh-pages/geography/zcta/Illinois.topo.json').subscribe(response => {
     	  var width = 960
         var height = 700;
@@ -39,7 +40,11 @@ makeMap () {
           .attr( "width", width )
           .attr( "height", height );
 
-        var g = svg.append( "g" );
+        var g = svg.append( "g" )
+        .attr('class', 'state')
+        .on('click', function() {
+        	console.log('g firing')
+        });
 
         var albersProjection = this.d3.geoAlbers()
           .scale( 6000 )
@@ -51,7 +56,8 @@ makeMap () {
 
         var geoPath = this.d3.geoPath()
           .projection( albersProjection );
-          g.selectAll( "path" )
+          
+        var zips = g.selectAll( "path" )
             .data(topojson.feature(response.json(), response.json().objects["Illinois.geo"]).features)
             .enter()
             .append( "path" )
@@ -60,63 +66,20 @@ makeMap () {
             .attr( "class", "zip-borders")
             .attr( 'id', function(d, i){
               return response.json().objects['Illinois.geo'].geometries[i].id
+            });
+
+            console.log(zips)
+
+            zips.on('click', function() {
+            	console.log('firing')
+            	// self.d3.select(this)
             })
             console.log('done')
-
-
       	})
    }
 
-   createMap() {
-      var width = 960;
-      var height = 600;
-      
-      var svg = this.d3.select( "body" )
-        .append( "svg" )
-        .attr( "width", width )
-        .attr( "height", height );
-      var path = this.d3.geoPath();
-      this.http.get('https://raw.githubusercontent.com/storiesofsolidarity/us-data/gh-pages/geography/zcta/Alabama.topo.json').subscribe(response => {
-        var toDraw = topojson.feature(response.json(), response.json().objects["Alabama.geo"]).features
-                console.log(toDraw)
-
-        // svg.append("g")
-        //     .attr("class", "states")
-        //   .selectAll("path")
-        //   .data(toDraw)
-        //  .enter().append("path")
-        //    .attr("d", path);
-        // svg.append("path")
-        //     .attr("class", "state-borders")
-        //     .attr("d", path(topojson.mesh(response.json(), response.json().states, function(a, b) { return a !== b; })))
-
-
-
-
-
-
-
-
-
-
-        var g = svg.append("g")
-            .attr("class", "states")
-            .selectAll("path")
-            .data(toDraw)
-            .enter() 
-            .append("path")
-            .attr("class", "state-borders")
-            .attr("d", path)
-            ;
-
-
-            this.d3.selectAll("path").on('click', function(){
-              console.log('clicked')
-            })
-  });
 }
 
-}
 
 
 
