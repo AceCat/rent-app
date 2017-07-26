@@ -18,7 +18,7 @@ const routes: Routes = [
     component: MapComponent
   },
   {
-  	path: 'view',
+  	path: 'view/:id',
   	component: ViewComponent
   }]
 

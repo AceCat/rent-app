@@ -35,7 +35,7 @@ makeMap () {
     	  var width = 960
         var height = 700;
 
-        var svg = this.d3.select( "body" )
+        var svg = this.d3.select( "div" )
           .append( "svg" )
           .attr( "width", width )
           .attr( "height", height );
@@ -65,7 +65,7 @@ makeMap () {
               return response.json().objects['Illinois.geo'].geometries[i].id
             })
             .on('click', function(d, i){
-                console.log(response.json().objects['Illinois.geo'].geometries[i].id)
+               self.router.navigate(['/view', response.json().objects['Illinois.geo'].geometries[i].id])
               })
             
             console.log('done')

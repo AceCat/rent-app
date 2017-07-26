@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {Http, Response} from '@angular/http';
 import { Router } from '@angular/router';
 
@@ -20,14 +21,17 @@ export class ViewComponent implements OnInit {
 
 
 
-  constructor(private http: Http, private router: Router) { }
-
-  ngOnInit() {
-  	this.grabRentPerSquareFoot()
+  constructor(private route: ActivatedRoute, private http: Http, private router: Router) { 
+    let id = this.route.snapshot.params.id;
+    this.grabRentPerSquareFoot(id)
   }
 
-  grabRentPerSquareFoot(){
-  	this.http.get('https://www.quandl.com/api/v3/datasets/ZILL/Z60618_RZSF.json').subscribe(response => {
+  ngOnInit() {
+  	
+  }
+
+  grabRentPerSquareFoot(id){
+  	this.http.get('https://www.quandl.com/api/v3/datasets/ZILL/Z' + id + '_RZSF.json').subscribe(response => {
   		this.housingDataArray = response.json().dataset.data
   		console.log(this.housingDataArray)
   	})
