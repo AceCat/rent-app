@@ -103,15 +103,26 @@ makeMap () {
     this.http.get('https://raw.githubusercontent.com/storiesofsolidarity/us-data/gh-pages/geography/zcta/'+ this.state.name +'.topo.json').subscribe(response => {
     	var width = 960
         var height = 700;
+        var active = this.d3.select(null)
+        var otherSelf = this
 
 
-        var svg = this.d3.select( ".map" )
+        var zoom = this.d3.zoom()
+          .scaleExtent([1, 8])
+          .on("zoom", zoomed);
+
+        var svg = self.d3.select( ".map" )
           .append( "svg" )
           .attr( "width", width )
-          .attr( "height", height );
+          .attr( "height", height )
+          ;
+
 
         var g = svg.append( "g" )
           .attr('class', 'state');
+
+         svg
+           .call(zoom);
 
         let thisStateLat = this.stateNamesAndCoords[this.state.name][0]
         let thisStateLong = this.stateNamesAndCoords[this.state.name][1] * -1
@@ -134,7 +145,6 @@ makeMap () {
             .append( "path" )
             .attr( "d", geoPath )
             .attr( "class", "zip-borders")
-            // .attr( 'fill', '#688C5B')
             .attr( 'id', function(d, i){
               return response.json().objects[self.state.name + ".geo"].geometries[i].id
             })
@@ -143,10 +153,17 @@ makeMap () {
               })
    
             console.log('done')
-            
+
+            function zoomed() {
+              g.style("stroke-width", 1.5 / self.d3.event.scale + "px");
+              g.attr("transform", self.d3.event.transform);
+            }
+
 
       	})
-   }
+   
+  
+  }
 
 
 
