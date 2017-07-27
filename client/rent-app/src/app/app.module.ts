@@ -9,6 +9,8 @@ import { MapComponent } from './map/map.component';
 import * as topojson from '@types/topojson';
 import { ViewComponent } from './view/view.component';
 import { LoginComponent } from './login/login.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MdTabsModule, MdInputModule, MdButtonModule} from '@angular/material';
 
 // import * as topojson from '../../node_modules/@types/topojson';
 
@@ -32,13 +34,17 @@ const routes: Routes = [
     AppComponent,
     MapComponent,
     ViewComponent,
-    LoginComponent,
+    LoginComponent
  ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    MdTabsModule,
+    MdInputModule,
+    MdButtonModule
   ],
   providers: [D3Service],
   bootstrap: [AppComponent]

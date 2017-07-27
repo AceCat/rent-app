@@ -1,5 +1,43 @@
+<!-- 
+<div class="tab">
+	<button (click)='toggleLogin()'>Login</button>
+	<button (click)='toggleRegister()'>Register</button>
+</div>
 
-<input [(ngModel)]='currentUser.email' placeholder="Email">
-<input [(ngModel)]='currentUser.password' placeholder="Password">
-<button (click)='loginUser()'>Login</button>
+<br /> -->
+
+<md-tab-group>
+  <md-tab label="Login">
+  	<md-input-container>
+		<input mdInput [(ngModel)]='currentUser.email' placeholder="Email">
+	</md-input-container>
+	<md-input-container>
+		<input mdInput [(ngModel)]='currentUser.password' placeholder="Password">
+	</md-input-container>
+
+	<button md-button (click)='loginUser()'>Login</button>
+  </md-tab>
+  <md-tab label="Register">
+ 	<md-input-container>
+		<input mdInput name='email'[(ngModel)]='newUser.email' placeholder="Enter Your Email">
+	</md-input-container>
+	<md-input-container>
+		<input mdInput [(ngModel)]='newUser.password' placeholder="Enter your password">
+	</md-input-container>
+		<button md-button (click)='registerUser()'>Register</button>
+  </md-tab>
+</md-tab-group>
+{{errorMessage}}
+
+<br />
+
+<!-- <div *ngIf='showRegister'>
+
+<br />
+</div>
+
+
+
 <p>{{errorMessage}}</p>
+</div>
+ -->
