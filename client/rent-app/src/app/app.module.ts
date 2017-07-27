@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import * as topojson from '@types/topojson';
 import { ViewComponent } from './view/view.component';
+import { LoginComponent } from './login/login.component';
 
 // import * as topojson from '../../node_modules/@types/topojson';
 
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
   	path: 'view/:id',
   	component: ViewComponent
+  },
+  {
+  	path: 'login',
+  	component: LoginComponent
   }]
 
 @NgModule({
@@ -27,6 +32,7 @@ const routes: Routes = [
     AppComponent,
     MapComponent,
     ViewComponent,
+    LoginComponent,
  ],
   imports: [
     BrowserModule,

@@ -127,12 +127,13 @@ makeMap () {
             })
             .on('click', function(d, i){
                self.router.navigate(['/view', response.json().objects[self.state.name + ".geo"].geometries[i].id])
-              })            
-            console.log('done')
-            
-
-      	})
+              })
+        })
    }
+
+
+
+
 
 }
 
