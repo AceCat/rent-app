@@ -1,16 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 
+body{
+	background-color: #ADC0C6;
+}
 
 
 .zip-borders {
-  fill: #688C5B;
-  stroke: #fff;
-  stroke-width: 0.5px;
-  stroke-linejoin: round;
-  stroke-linecap: round;
+	fill: #688C5B;
+	stroke: #fff;
+	stroke-width: .2px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
 }
-#zip-borders :hover {
-  fill: red;
+.state :hover {
+	fill: #FCFBED;
 }
 
 .line{
