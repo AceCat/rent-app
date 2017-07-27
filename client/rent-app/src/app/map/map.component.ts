@@ -121,14 +121,18 @@ makeMap () {
             .append( "path" )
             .attr( "d", geoPath )
             .attr( "class", "zip-borders")
-            .attr( 'fill', '#688C5B')
+            // .attr( 'fill', '#688C5B')
             .attr( 'id', function(d, i){
               return response.json().objects[self.state.name + ".geo"].geometries[i].id
             })
             .on('click', function(d, i){
                self.router.navigate(['/view', response.json().objects[self.state.name + ".geo"].geometries[i].id])
               })
-        })
+   
+            console.log('done')
+            
+
+      	})
    }
 
 
