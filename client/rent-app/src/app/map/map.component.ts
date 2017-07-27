@@ -101,7 +101,7 @@ makeMap () {
 	var self = this
 
     this.http.get('https://raw.githubusercontent.com/storiesofsolidarity/us-data/gh-pages/geography/zcta/'+ this.state.name +'.topo.json').subscribe(response => {
-    	  var width = 960
+    	var width = 960
         var height = 700;
 
 

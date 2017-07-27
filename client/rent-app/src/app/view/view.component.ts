@@ -37,7 +37,7 @@ export class ViewComponent implements OnInit {
   }
 
   grabRentPerSquareFoot(id){
-  	this.http.get('https://www.quandl.com/api/v3/datasets/ZILL/Z' + id + '_RZSF.json').subscribe(response => {
+  	this.http.get('https://www.quandl.com/api/v3/datasets/ZILL/Z' + id + '_RZSF.json?api_key=L2G7Ec6a-naz3StPLMBw').subscribe(response => {
   		this.housingDataArray = response.json().dataset.data
   		console.log(this.housingDataArray)
   		this.makeChart()
@@ -92,6 +92,14 @@ export class ViewComponent implements OnInit {
         .datum(data)
         .attr("class", "line")
         .attr("d", <any>line);
+
+      svg.selectAll("dot")
+        .data(data)
+        .enter().append("circle")
+        .attr("r", 3.5)
+        .attr("cx", function(d) { return x(d.date); })
+        .attr("cy", function(d) { return y(d.amount); });
+
   }
 
 
