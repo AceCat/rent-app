@@ -59,7 +59,7 @@ export class ViewComponent implements OnInit {
     .x(function(d) { return x(d['date']); })
     .y(function(d) { return y(d['amount']); });
     
-    var svg = this.d3.select("body").append("svg")
+    var svg = this.d3.select("div").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
