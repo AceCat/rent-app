@@ -15,7 +15,7 @@
 		<input mdInput [(ngModel)]='currentUser.password' placeholder="Password">
 	</md-input-container>
 
-	<button md-button (click)='loginUser()'>Login</button>
+	<button md-raised-button (click)='loginUser()'>Login</button>
   </md-tab>
   <md-tab label="Register">
  	<md-input-container>
@@ -24,7 +24,7 @@
 	<md-input-container>
 		<input mdInput [(ngModel)]='newUser.password' placeholder="Enter your password">
 	</md-input-container>
-		<button md-button (click)='registerUser()'>Register</button>
+		<button md-raised-button (click)='registerUser()'>Register</button>
   </md-tab>
 </md-tab-group>
 {{errorMessage}}

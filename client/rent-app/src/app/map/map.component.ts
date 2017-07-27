@@ -15,9 +15,20 @@ declare let topojson: any;
 export class MapComponent implements OnInit {
 	private d3: D3; // <-- Define the private member which will hold the d3 reference
 	private parentNativeElement: any;
+  
   state = {
     name: ""
   };
+
+  statesArray = [{
+  	name: "Alabama",
+  	value: "Alabama"
+  },
+  {
+  	name: "Alaska",
+  	value: "Alaska"
+  }
+  ]
 
   stateNamesAndCoords = {
     Alabama: [32.6010112,-86.6807365],
@@ -88,11 +99,13 @@ export class MapComponent implements OnInit {
 
 makeMap () {
 	var self = this
+
     this.http.get('https://raw.githubusercontent.com/storiesofsolidarity/us-data/gh-pages/geography/zcta/'+ this.state.name +'.topo.json').subscribe(response => {
     	  var width = 960
         var height = 700;
 
-        var svg = this.d3.select( "div" )
+
+        var svg = this.d3.select( ".map" )
           .append( "svg" )
           .attr( "width", width )
           .attr( "height", height );
