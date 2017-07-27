@@ -91,6 +91,13 @@ makeMap () {
     this.http.get('https://raw.githubusercontent.com/storiesofsolidarity/us-data/gh-pages/geography/zcta/'+ this.state.name +'.topo.json').subscribe(response => {
     	  var width = 960
         var height = 700;
+        var active = this.d3.select(null)
+
+        var zoom = this.d3.zoom()
+          // .translate([0, 0])
+          // .scale(1)
+          .scaleExtent([1, 8])
+          .on("zoom", zoomed);
 
         var svg = this.d3.select( "div" )
           .append( "svg" )
@@ -125,15 +132,48 @@ makeMap () {
             .attr( 'id', function(d, i){
               return response.json().objects[self.state.name + ".geo"].geometries[i].id
             })
-            .on('click', function(d, i){
-               self.router.navigate(['/view', response.json().objects[self.state.name + ".geo"].geometries[i].id])
-              })
+            // .on('click', function(d, i){
+            //    self.router.navigate(['/view', response.json().objects[self.state.name + ".geo"].geometries[i].id])
+            //   })
+            .on('click', clicked)
    
             console.log('done')
-            
+
+            function clicked(d) {
+                if (active.node() === this) return reset();
+                active.classed("active", false);
+                active = this.d3.select(this).classed("active", true);
+
+                var bounds = geoPath.bounds(d),
+                    dx = bounds[1][0] - bounds[0][0],
+                    dy = bounds[1][1] - bounds[0][1],
+                    x = (bounds[0][0] + bounds[1][0]) / 2,
+                    y = (bounds[0][1] + bounds[1][1]) / 2,
+                    scale = Math.max(1, Math.min(8, 0.9 / Math.max(dx / width, dy / height))),
+                    translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+                svg.transition()
+                    .duration(750)
+                    .call(this.zoom.translate(translate).scale(scale).event);
+
+             }
+            function reset() {
+              active.classed("active", false);
+              active = this.d3.select(null);
+
+              svg.transition()
+                  .duration(750)
+                  .call(this.zoom.translate([0, 0]).scale(1).event);
+            }
+            function zoomed() {
+              g.style("stroke-width", 1.5 / this.d3.event.scale + "px");
+              g.attr("transform", "translate(" + this.d3.event.translate + ")scale(" + this.d3.event.scale + ")");
+            }
 
       	})
-   }
+   
+  
+}
 
 
 
