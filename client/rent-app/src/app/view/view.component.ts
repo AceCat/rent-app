@@ -69,28 +69,31 @@ export class ViewComponent implements OnInit {
          date: parseDate(d[0]),
          amount: d[1]
       }
-  })
+    })
+
+
       console.log(data)
-  x.domain(this.d3.extent(data, function(d) { return d.date; }));
-  y.domain(this.d3.extent(data, function(d) { return d.amount; }));
-    svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
-    svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Price ($)");
-    svg.append("path")
-      .data(data)
-      .attr("class", "line")
-      .attr("d", <any>line);
-}
+    x.domain(this.d3.extent(data, function(d) { return d.date; }));
+    y.domain(this.d3.extent(data, function(d) { return d.amount; }));
+      svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+      svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+      .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text("Price ($)");
+      svg.append("path")
+        .datum(data)
+        .attr("class", "line")
+        .attr("d", <any>line);
+  }
+
 
 
 }
