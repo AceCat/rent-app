@@ -105,6 +105,12 @@ export class MapComponent implements OnInit {
 makeMap () {
 	var self = this
 
+	var maps = document.getElementsByClassName('currentMap')
+	if (maps.length > 0){
+        maps[0].remove()
+	}
+
+
     this.http.get('https://raw.githubusercontent.com/storiesofsolidarity/us-data/gh-pages/geography/zcta/'+ this.state.name +'.topo.json').subscribe(response => {
     	var width = 960
         var height = 700;
@@ -120,6 +126,7 @@ makeMap () {
           .append( "svg" )
           .attr( "width", width )
           .attr( "height", height )
+          .attr('class', 'currentMap')
           ;
 
 
