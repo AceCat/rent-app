@@ -1,7 +1,19 @@
 
 
-<!-- <h2>Current Price: {{housingDataArray && housingDataArray}}</h2>
- -->
+
+
+<select class='styled-select' [(ngModel)]="searchData">
+    <option value="RZSF">Estimated Rent Per Square Foot</option>
+    <option value="PRR">Price to Rent Ratio</option>
+    <option value="MSP">Median Sale Price</option>
+    <option value="A">Value of all homes in area
+    <option value="BT">Value of bottom 33% of homes</option>
+    <option value="MT">Value of middle 33% of homes</option>
+    <option value="TT">Value of top 33% of homes</option>
+</select>
+<button md-raised-button (click)="selectData()">Submit</button>
+
+
 <div class="chart"></div>
 <!-- <table>
 	<tr *ngFor='let data of housingDataArray'>

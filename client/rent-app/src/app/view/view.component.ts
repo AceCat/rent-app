@@ -21,12 +21,14 @@ export class ViewComponent implements OnInit {
 
   housingData: HousingData = new HousingData();
   housingDataArray: HousingData[] = [];
+  searchData = "";
+  zipId = "";
 
 
 
 
   constructor(private route: ActivatedRoute, private http: Http, private router: Router, element: ElementRef, d3Service: D3Service) { 
-        this.d3 = d3Service.getD3(); // <-- obtain the d3 object from the D3 Service
+    this.d3 = d3Service.getD3(); // <-- obtain the d3 object from the D3 Service
     this.parentNativeElement = element.nativeElement;
     let id = this.route.snapshot.params.id;
     this.grabRentPerSquareFoot(id)
@@ -39,6 +41,7 @@ export class ViewComponent implements OnInit {
   grabRentPerSquareFoot(id){
   	this.http.get('https://www.quandl.com/api/v3/datasets/ZILL/Z' + id + '_RZSF.json?api_key=L2G7Ec6a-naz3StPLMBw').subscribe(response => {
   		this.housingDataArray = response.json().dataset.data
+      this.zipId = id
   		console.log(this.housingDataArray)
   		this.makeChart()
   	})
@@ -69,9 +72,10 @@ export class ViewComponent implements OnInit {
 
 
     
-    var svg = this.d3.select("div").append("svg")
+    var svg = this.d3.select(".chart").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
+        .attr('class', 'currentChart')
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
       var data = this.housingDataArray.map(function(d) {
@@ -126,6 +130,17 @@ export class ViewComponent implements OnInit {
   });
   }
 
+  selectData() {
+        var chart = document.getElementsByClassName('currentChart')
+        chart[0].remove()
+        this.http.get('https://www.quandl.com/api/v3/datasets/ZILL/Z' + this.zipId + '_' + this.searchData + '.json?api_key=L2G7Ec6a-naz3StPLMBw').subscribe(response => {
+          this.housingDataArray = response.json().dataset.data
+          this.makeChart()
+
+        })
+
+
+  }
 
 
 }
