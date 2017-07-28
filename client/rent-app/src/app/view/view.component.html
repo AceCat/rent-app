@@ -1,19 +1,17 @@
 
 
 
-
+<br />
 <select class='styled-select' [(ngModel)]="searchData">
-    <option value="RZSF">Estimated Rent Per Square Foot</option>
-    <option value="PRR">Price to Rent Ratio</option>
-    <option value="MSP">Median Sale Price</option>
-    <option value="A">Value of all homes in area
-    <option value="BT">Value of bottom 33% of homes</option>
-    <option value="MT">Value of middle 33% of homes</option>
-    <option value="TT">Value of top 33% of homes</option>
+	<option *ngFor='let dataOption of dataOptions' [value]='dataOption.value'>{{dataOption.text}}
+	</option>
+
 </select>
 <button md-raised-button (click)="selectData()">Submit</button>
 
+<br />
 
+<h2 id='graphTitle'>{{searchDataTitle}}</h2>
 <div class="chart"></div>
 <!-- <table>
 	<tr *ngFor='let data of housingDataArray'>

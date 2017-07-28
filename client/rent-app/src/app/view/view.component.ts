@@ -19,11 +19,53 @@ export class ViewComponent implements OnInit {
 	private d3: D3; // <-- Define the private member which will hold the d3 reference
 	private parentNativeElement: any;
 
+  dataOptions = [{
+    text: 'Estimated Rent Per Square Foot',
+    value: 'RZSF'
+  },
+  {
+    text: "Price to Rent Ratio",
+    value: "PRR"
+  },
+  {
+    text: 'Value of all homes',
+    value: 'A'
+  },
+  {
+    text: 'Value of bottom 33% of homes',
+    value:'BT'
+  },
+  {
+    text: 'Value of middle 33% of homes',
+    value: 'MT'
+  },
+  {
+    text: 'Value of top 33% of homes',
+    value: 'TT'
+  }]
+ 
+
   housingData: HousingData = new HousingData();
   housingDataArray: HousingData[] = [];
   searchData = "";
-  searchDataName = ""
+  searchDataTitle = "Estimated Rent Price Per Square Foot"
   zipId = "";
+
+  determineTitle(){
+    if(this.searchData == 'A'){
+      this.searchDataTitle = "Value of All Homes"
+    } else if (this.searchData == 'RZSF'){
+      this.searchDataTitle = 'Estimated Rent Per Square Foot'
+    } else if (this.searchData == 'PRR') {
+      this.searchDataTitle = 'Price to Rent Ratio'
+    } else if (this.searchData == 'BT'){
+      this.searchDataTitle = 'Value of Bottom 33% of Homes'
+    }  else if (this.searchData == 'MT'){
+      this.searchDataTitle = 'Value of Middle 33% of Homes'
+    } else if (this.searchData == "TT") {
+      this.searchDataTitle = "Value of Top 33% of Homes"
+    }
+  }
 
 
 
@@ -97,6 +139,7 @@ export class ViewComponent implements OnInit {
       svg.append("g")
         .attr("class", "y axis")
         .call(yAxis)
+
        
        svg.append("text")             
       .attr("transform",
@@ -106,13 +149,13 @@ export class ViewComponent implements OnInit {
       .text("Date");
 
 
-        svg.append("text")
+       svg.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0 - margin.left)
       .attr("x",0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("Dollars and cents dawg");  
+      .text('USD $');  
 
 
       svg.append("path")
@@ -146,6 +189,8 @@ export class ViewComponent implements OnInit {
   selectData() {
         var chart = document.getElementsByClassName('currentChart')
         chart[0].remove()
+        this.determineTitle()
+        console.log(this.searchDataTitle)
         this.http.get('https://www.quandl.com/api/v3/datasets/ZILL/Z' + this.zipId + '_' + this.searchData + '.json?api_key=L2G7Ec6a-naz3StPLMBw').subscribe(response => {
           this.housingDataArray = response.json().dataset.data
           this.makeChart()
