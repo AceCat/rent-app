@@ -22,3 +22,17 @@ body{
 	stroke-width: 3px;
 	stroke: black;
 }
+
+.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 28px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: green;
+  border: .5px;
+  border-color: white;
+  border-radius: 8px;
+  pointer-events: none;
+}

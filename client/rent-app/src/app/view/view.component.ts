@@ -45,10 +45,13 @@ export class ViewComponent implements OnInit {
   }
 
   makeChart(){
+    var self = this
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
     var parseDate = this.d3.timeParse("%Y-%m-%d");
+    var formatTime = this.d3.timeFormat("%e %B");
+
     var x = this.d3.scaleTime()
     .range([0, width])
     var y = this.d3.scaleLinear()
@@ -58,6 +61,13 @@ export class ViewComponent implements OnInit {
     var line = this.d3.line()
     .x(function(d) { return x(d['date']); })
     .y(function(d) { return y(d['amount']); });
+
+
+    var toolTip = this.d3.select(".chart").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+
     
     var svg = this.d3.select("div").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -98,8 +108,22 @@ export class ViewComponent implements OnInit {
         .enter().append("circle")
         .attr("r", 3.5)
         .attr("cx", function(d) { return x(d.date); })
-        .attr("cy", function(d) { return y(d.amount); });
+        .attr("cy", function(d) { return y(d.amount); })
+        .on("mouseover", function(d) {
+       console.log('Working')
+       toolTip.transition()
+         .duration(200)
+         .style("opacity", .9);
+       toolTip.html(formatTime(d.date) + "<br/>" + '$' + d.amount)
+         .style("left", (self.d3.event.pageX) + "px")
+         .style("top", (self.d3.event.pageY - 28) + "px");
+       })
+     .on("mouseout", function(d) {
+       toolTip.transition()
+         .duration(500)
+         .style("opacity", 0);
 
+  });
   }
 
 
