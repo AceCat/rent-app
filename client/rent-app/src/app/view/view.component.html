@@ -1,12 +1,22 @@
 
 
-<!-- <h2>Current Price: {{housingDataArray && housingDataArray}}</h2>
- -->
+
+<br />
+<select class='styled-select' [(ngModel)]="searchData">
+	<option *ngFor='let dataOption of dataOptions' [value]='dataOption.value'>{{dataOption.text}}
+	</option>
+
+</select>
+<button md-raised-button (click)="selectData()">Submit</button>
+
+<br />
+
+<h2 id='graphTitle'>{{searchDataTitle}}</h2>
 <div class="chart"></div>
-<table>
+<!-- <table>
 	<tr *ngFor='let data of housingDataArray'>
 		<td>{{data["0"]}}</td>
 		<td>{{data["1"]}}</td>
 	</tr>
 </table>
-
+ -->

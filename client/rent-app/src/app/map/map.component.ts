@@ -2,6 +2,8 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import {Http, Response} from '@angular/http';
 import { Router } from '@angular/router';
 import { D3Service, D3, Selection } from 'd3-ng2-service'; 
+import {MdInputModule} from '@angular/material';
+
 declare let topojson: any;
 
 
@@ -19,6 +21,9 @@ export class MapComponent implements OnInit {
   state = {
     name: ""
   };
+
+  zipCode = "";
+
 
   statesArray = [{
   	name: "Alabama",
@@ -93,12 +98,18 @@ export class MapComponent implements OnInit {
 
 
   ngOnInit() {
-  	
+
   }
 
 
 makeMap () {
 	var self = this
+
+	var maps = document.getElementsByClassName('currentMap')
+	if (maps.length > 0){
+        maps[0].remove()
+	}
+
 
     this.http.get('https://raw.githubusercontent.com/storiesofsolidarity/us-data/gh-pages/geography/zcta/'+ this.state.name +'.topo.json').subscribe(response => {
     	var width = 960
@@ -115,6 +126,7 @@ makeMap () {
           .append( "svg" )
           .attr( "width", width )
           .attr( "height", height )
+          .attr('class', 'currentMap')
           ;
 
 
@@ -161,12 +173,11 @@ makeMap () {
 
 
       	})
-   
-  
   }
 
-
-
+  searchZip(){
+  	this.router.navigate(['/view/' + this.zipCode])
+  }
 
 
 }

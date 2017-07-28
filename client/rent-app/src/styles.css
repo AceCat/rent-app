@@ -23,7 +23,42 @@ body{
 	stroke: black;
 }
 
+#graphTitle{
+	margin-left: 330px;
+}
+
+.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 30px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: #dee6f2;
+  border: .5px;
+  border-color: white;
+  border-radius: 8px;
+  pointer-events: none;
+ }
+ 
 .background {
   fill: none;
   pointer-events: all;
+}
+
+.styled-select {
+   background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
+   height: 34px;
+   width: 240px;
+   -webkit-appearance: none;
+   background-color: white;
+
+}
+
+.styled-select select {
+	apperance: none;
+   border: 1px solid #ccc;
+   font-size: 16px;
+   height: 34px;
+   width: 268px;
 }

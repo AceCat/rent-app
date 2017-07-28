@@ -1,5 +1,14 @@
 <!-- <input [(ngModel)]="state.name"  placeholder="state"/> 
  -->
+
+<md-input-container>
+		<input mdInput [(ngModel)]='zipCode' placeholder="Zip Code">
+</md-input-container>
+<button md-raised-button (click)='searchZip()'>Search</button>
+
+<br />
+<br />
+
 <select class='styled-select' [(ngModel)]="state.name">
     <option value="Alabama">Alabama</option>
     <option value="Alaska">Alaska</option>
@@ -54,7 +63,10 @@
     <option value="Wyoming">Wyoming</option>
 </select>
 <button md-raised-button (click)="makeMap()">Submit</button>
-		
+
+<br />
+
+
 
 <!-- <md-select placeholder="state" >
 	<md-option *ngFor="let state of states" [value]='state.value'>{{state.name}}

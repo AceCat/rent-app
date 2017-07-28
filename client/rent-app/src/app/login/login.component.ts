@@ -32,11 +32,10 @@ export class LoginComponent implements OnInit {
   loginUser(){
   	  	this.http.post('http://localhost:9393/users/login', this.currentUser).subscribe(response => {
   	  		if (response.json().email) {
-  	  			console.log('fired')
   	  			window.localStorage.setItem("token", response.json().token)
+            var token = response.json().token
   	  			this.router.navigate(['/map'])
   	  		} else {
-  	  			console.log('failed')
   	  			this.errorMessage = response.json().error
   	  		}
   		// response.json().email ? this.router.navigate(['http://localhost:4200/map']) : this.errorMessage = response.json().error
@@ -57,16 +56,6 @@ export class LoginComponent implements OnInit {
       		this.errorMessage = 'That is not a valid email'
       	}
 		})
-	}
-
-	toggleLogin(){
-		this.showLogin = true;
-		this.showRegister = false;
-	}
-
-	toggleRegister(){
-		this.showLogin = false;
-		this.showRegister = true;
 	}
 
 }

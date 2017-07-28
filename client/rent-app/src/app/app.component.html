@@ -1,5 +1,22 @@
-<h1>RENT APP</h1> 
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://d3js.org/topojson.v0.min.js"></script>
+
+  <header>
+      <nav>
+        <div class="logo">
+          <h1>Rent All</h1>
+        </div>
+        <ul class="list-item">
+
+          <li class='navOpt'><a href="map">Map</a></li>
+          <li class='navOpt'(click)='logout()'>Logout</li>
+
+        </ul>
+          <button class='navSearch searchButton' md-raised-button (click)='navSearch()'>Search</button>
+          <md-input-container class='navSearch'>
+              <input class='searchBox' mdInput [(ngModel)]='navZip' placeholder="Zip Code">
+          </md-input-container>
+      </nav>
+ </header>
 
 <router-outlet></router-outlet>

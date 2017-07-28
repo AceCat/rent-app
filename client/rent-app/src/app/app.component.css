@@ -1,0 +1,85 @@
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: arial, tahoma;
+  list-style: none;
+  /*    outline: 1px solid brown;*/
+}
+
+/*   End global   */
+
+
+
+header {
+  background-color: white;
+  height: 80px;
+}
+
+/*   Start navigation bar   */
+
+nav {
+  height: 80px;
+  background-color: #688C5B;
+  border-bottom: 1px solid #555
+}
+.logo {
+  padding: 10px;
+  width: auto;
+  float: left;
+}
+.logo img {
+  height: 55px;
+}
+.list-item {
+  float: right;
+  margin-right: 25px;
+  margin-top: 17px;
+}
+.list-item li {
+  float: left;
+  padding: 13px 13px;
+  font-size: 18px;
+  border-radius: 3px;
+  transition: all .7s ease-in-out;
+  color: #EEE;
+}
+.list-item li a {
+  color: #EEE;
+}
+.list-item li:hover {
+  background-color: #7B1FA2;
+}
+
+h1{
+  padding-top: 10px;
+  padding-left: 5px;
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+  color: white;
+}
+
+.navSearch {
+  margin-top: 10px;
+  float: right;
+}
+
+.searchBox{
+  color: white;
+}
+
+.searchButton{
+  transition: all .7s ease-in-out;
+  margin-top: 20px;
+  margin-right: 15px;
+  margin-left: 5px;
+}
+
+.searchButton:hover{
+    background-color: #7B1FA2
+;
+}
+
+/*   End navigation bar   */
