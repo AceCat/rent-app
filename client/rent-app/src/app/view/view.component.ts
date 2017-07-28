@@ -54,7 +54,7 @@ export class ViewComponent implements OnInit {
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
     var parseDate = this.d3.timeParse("%Y-%m-%d");
-    var formatTime = this.d3.timeFormat("%e %B");
+    var formatTime = this.d3.timeFormat("%x");
 
     var x = this.d3.scaleTime()
     .range([0, width])
@@ -131,7 +131,7 @@ export class ViewComponent implements OnInit {
        toolTip.transition()
          .duration(200)
          .style("opacity", .9);
-       toolTip.html(formatTime(d.date) + "<br/>" + '$' + d.amount)
+       toolTip.html(formatTime(d.date) + "<br/>" + '$' + Math.round(d.amount*100)/100)
          .style("left", (self.d3.event.pageX) + "px")
          .style("top", (self.d3.event.pageY - 28) + "px");
        })

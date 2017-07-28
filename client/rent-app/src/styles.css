@@ -27,10 +27,10 @@ body{
   position: absolute;
   text-align: center;
   width: 60px;
-  height: 28px;
+  height: 30px;
   padding: 2px;
   font: 12px sans-serif;
-  background: grey;
+  background: #dee6f2;
   border: .5px;
   border-color: white;
   border-radius: 8px;
@@ -47,7 +47,7 @@ body{
    height: 34px;
    width: 240px;
    -webkit-appearance: none;
-   background-color: grey;
+   background-color: white;
 
 }
 
