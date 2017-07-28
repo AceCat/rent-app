@@ -2,6 +2,8 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import {Http, Response} from '@angular/http';
 import { Router } from '@angular/router';
 import { D3Service, D3, Selection } from 'd3-ng2-service'; 
+import {MdInputModule} from '@angular/material';
+
 declare let topojson: any;
 
 
@@ -19,6 +21,9 @@ export class MapComponent implements OnInit {
   state = {
     name: ""
   };
+
+  zipCode = "";
+
 
   statesArray = [{
   	name: "Alabama",
@@ -93,7 +98,7 @@ export class MapComponent implements OnInit {
 
 
   ngOnInit() {
-  	
+
   }
 
 
@@ -161,8 +166,10 @@ makeMap () {
 
 
       	})
-   
-  
+  }
+
+  searchZip(){
+  	this.router.navigate(['/view/' + this.zipCode])
   }
 
 
