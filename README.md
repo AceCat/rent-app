@@ -25,6 +25,8 @@ In its current state the app is fully functional, however, there are a variety o
 - Alaska scales improperly
 - Present missing zip code areas (such as national parks) in a more natural way
 - Additional table view to enable users to delve deeper than the graph
+- Display zip codes as you're scrolling through the map
+- Display zip code names on the '/view' page
 
 ## Original Wireframes
 ![alt text](https://github.com/AceCat/rent-app/blob/master/IMG_0486.JPG)
