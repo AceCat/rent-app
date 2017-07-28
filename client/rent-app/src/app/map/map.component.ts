@@ -119,7 +119,7 @@ makeMap () {
 
 
         var zoom = this.d3.zoom()
-          .scaleExtent([1, 8])
+          .scaleExtent([0.2, 8])
           .on("zoom", zoomed);
 
         var svg = self.d3.select( ".map" )
