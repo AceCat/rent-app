@@ -22,6 +22,8 @@ In its current state the app is fully functional, however, there are a variety o
 ## Incoming Small Tweaks
 - Some of the graphs are crowded with too many datapoints, we'd like to make these graphs more readable.
 - Additional styling changes
+- Alaska scales improperly
+- Present missing zip code areas (such as national parks) in a more natural way
 - Additional table view to enable users to delve deeper than the graph
 
 ## Original Wireframes
