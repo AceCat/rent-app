@@ -15,9 +15,9 @@
           <li class='navOpt'(click)='logout()'>Logout</li>
 
         </ul>
-          <button class='navSearch searchButton' md-raised-button (click)='searchZip()'>Search</button>
+          <button class='navSearch searchButton' md-raised-button (click)='navSearch()'>Search</button>
           <md-input-container class='navSearch'>
-              <input class='searchBox' mdInput [(ngModel)]='zipCode' placeholder="Zip Code">
+              <input class='searchBox' mdInput [(ngModel)]='navZip' placeholder="Zip Code">
           </md-input-container>
       </nav>
  </header>
