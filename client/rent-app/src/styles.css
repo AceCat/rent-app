@@ -35,4 +35,7 @@ body{
   border-color: white;
   border-radius: 8px;
   pointer-events: none;
+.background {
+  fill: none;
+  pointer-events: all;
 }
