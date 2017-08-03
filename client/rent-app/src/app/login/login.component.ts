@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   loginUser(){
-  	  	this.http.post('http://localhost:9393/users/login', this.currentUser).subscribe(response => {
+  	  	this.http.post('http://localhost:9292/users/login', this.currentUser).subscribe(response => {
   	  		if (response.json().email) {
   	  			window.localStorage.setItem("token", response.json().token)
             var token = response.json().token
@@ -38,9 +38,9 @@ export class LoginComponent implements OnInit {
   	  		} else {
   	  			this.errorMessage = response.json().error
   	  		}
-  		// response.json().email ? this.router.navigate(['http://localhost:4200/map']) : this.errorMessage = response.json().error
- 	})
+ 	  })
 	}
+
 
 	validateEmail(email) {
     	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
 }
 
 	registerUser(){
-		this.http.post('http://localhost:9393/users/register', this.newUser).subscribe(response => {
+		this.http.post('http://localhost:9292/users/register', this.newUser).subscribe(response => {
 		if (this.validateEmail(this.newUser.email)) {
       	window.localStorage.setItem("token", response.json().token)
       	this.router.navigate(['/map'])
