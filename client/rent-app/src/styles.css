@@ -55,6 +55,10 @@ body{
 
 }
 
+svg {
+  margin-top: 5px;
+}
+
 .styled-select select {
 	apperance: none;
    border: 1px solid #ccc;
