@@ -20,10 +20,10 @@ end
 	post '/register' do
 		user_details = JSON.parse(request.body.read)
 		user = User.new
-		user.email = user_details["email"]
-		user.password = user_details["password"]
-		user.zip_code = user_details["zip_code"]
-		user.token = SecureRandom.hex
+			user.email = user_details["email"]
+			user.password = user_details["password"]
+			user.zip_code = user_details["zip_code"]
+			user.token = SecureRandom.hex
 		user.save
 		user.to_json
 	end

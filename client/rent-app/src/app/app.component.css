@@ -5,7 +5,7 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   text-decoration: none;
-  font-family: arial, tahoma;
+  font-family: lato, arial, tahoma;
   list-style: none;
   /*    outline: 1px solid brown;*/
 }
@@ -24,7 +24,8 @@ header {
 nav {
   height: 80px;
   background-color: #688C5B;
-  border-bottom: 1px solid #555
+  border-bottom: 1px solid #555;
+  overflow: hidden;
 }
 .logo {
   padding: 10px;
@@ -57,7 +58,7 @@ nav {
 h1{
   padding-top: 10px;
   padding-left: 5px;
-  font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+  font-family: Lato;
   color: white;
 }
 
@@ -78,8 +79,13 @@ h1{
 }
 
 .searchButton:hover{
-    background-color: #7B1FA2
-;
+    background-color: #7B1FA2;
 }
+
+@media screen and (max-width: 580px) {
+  .searchSection {
+    display: none;
+  }
+  }
 
 /*   End navigation bar   */

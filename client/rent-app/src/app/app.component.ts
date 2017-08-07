@@ -10,10 +10,20 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit{
   title = 'app';
   navZip = "";
+  token = window.localStorage.token;
 
   constructor(private router: Router) {}
 
   ngOnInit(){}
+
+iconToggle(){
+    var x = document.getElementById("myTopNav");
+    if (x.className === "topNav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topNav";
+    }
+}
 
     navSearch(){
   	this.router.navigate(['/view/' + this.navZip])

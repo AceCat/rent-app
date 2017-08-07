@@ -9,13 +9,17 @@
         <ul class="list-item">
 
           <li class='navOpt'><a href="map">Map</a></li>
-          <li class='navOpt'(click)='logout()'>Logout</li>
+          <li *ngIf='token' class='navOpt'(click)='logout()'>Logout</li>
+          <li *ngIf='!token' class='navOpt'(click)='logout()'>Login</li>
+
 
         </ul>
+        <div class='searchSection'>
           <button class='navSearch searchButton' md-raised-button (click)='navSearch()'>Search</button>
           <md-input-container class='navSearch'>
               <input class='searchBox' mdInput [(ngModel)]='navZip' placeholder="Zip Code">
           </md-input-container>
+        </div>
       </nav>
  </header>
 
