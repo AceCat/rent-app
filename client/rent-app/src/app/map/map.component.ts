@@ -92,6 +92,7 @@ export class MapComponent implements OnInit {
   constructor(private http: Http, private router: Router, element: ElementRef, d3Service: D3Service) { // <-- pass the D3 Service into the constructor
     this.d3 = d3Service.getD3(); // <-- obtain the d3 object from the D3 Service
     this.parentNativeElement = element.nativeElement;
+    this.makeUsMap()
   }
 
 
@@ -100,6 +101,69 @@ export class MapComponent implements OnInit {
   ngOnInit() {
 
   }
+makeUsMap() {
+  var self = this
+  this.http.get('https://raw.githubusercontent.com/jgoodall/us-maps/master/topojson/state.topo.json').subscribe(response =>{
+    var width = 960
+    var height = 700
+    var active = this.d3.select(null)
+    console.log(response.json())
+
+
+    var zoom = this.d3.zoom()
+      .scaleExtent([1, 8])
+      .on("zoom", zoomed);
+
+    var svg = self.d3.select(".map")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("class", "currentMap");
+
+    var g = svg.append("g")
+      .attr('class', 'state');
+
+    svg.call(zoom);
+
+    var albersProjection = this.d3.geoAlbers()
+          .scale( 500 )
+          .translate( [width/2,height/2] )
+          ;
+
+    var geoPath = this.d3.geoPath()
+      .projection(albersProjection);
+
+    function dumbFunc(d) {
+      return d
+    }
+
+    function noSpace(name){
+      let newName = name.replace(" ", "_") 
+      return newName
+
+    }
+
+    g.selectAll("path")
+      .data(topojson.feature(response.json(), response.json().objects.state).features)
+      .enter()
+      .append("path")
+      .attr("d", geoPath)
+      .attr("class", "zip-borders")
+      .on("click", function(d, i){
+        console.log(dumbFunc(d))
+        self.state.name = noSpace(dumbFunc(d).properties.NAME10)
+        self.makeMap()
+      })
+      console.log('done')
+
+    function zoomed() {
+      g.style("stroke-width", 1.5 / self.d3.event.scale + "px");
+      g.attr("transform", self.d3.event.transform);
+    }
+
+  })
+}
+
 
 
 makeMap () {
