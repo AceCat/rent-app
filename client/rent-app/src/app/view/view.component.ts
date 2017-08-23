@@ -6,8 +6,8 @@ import { D3Service, D3, Selection } from 'd3-ng2-service';
 
 
 class HousingData {
-	date: Date;
-	amount: number;
+  date: Date;
+  amount: number;
 }
 
 @Component({
@@ -16,32 +16,32 @@ class HousingData {
   styleUrls: ['./view.component.css']
 })
 export class ViewComponent implements OnInit {
-	private d3: D3; // <-- Define the private member which will hold the d3 reference
-	private parentNativeElement: any;
+  private d3: D3; // <-- Define the private member which will hold the d3 reference
+  private parentNativeElement: any;
 
   dataOptions = [{
     text: 'Estimated Rent Per Square Foot',
-    value: 'RZSF'
+    value: 'ZRIFAH'
   },
   {
     text: "Price to Rent Ratio",
-    value: "PRR"
+    value: "PRRAH"
   },
   {
     text: 'Value of all homes',
-    value: 'A'
+    value: 'ZHVIAH'
   },
   {
     text: 'Value of bottom 33% of homes',
-    value:'BT'
+    value:'ZHVIBT'
   },
   {
     text: 'Value of middle 33% of homes',
-    value: 'MT'
+    value: 'ZHVIMT'
   },
   {
     text: 'Value of top 33% of homes',
-    value: 'TT'
+    value: 'ZHVITT'
   }]
  
 
@@ -52,17 +52,17 @@ export class ViewComponent implements OnInit {
   zipId = "";
 
   determineTitle(){
-    if(this.searchData == 'A'){
+    if(this.searchData == 'ZHVIAH'){
       this.searchDataTitle = "Value of All Homes"
-    } else if (this.searchData == 'RZSF'){
+    } else if (this.searchData == 'ZRIFAH'){
       this.searchDataTitle = 'Estimated Rent Per Square Foot'
-    } else if (this.searchData == 'PRR') {
+    } else if (this.searchData == 'PRRAH') {
       this.searchDataTitle = 'Price to Rent Ratio'
-    } else if (this.searchData == 'BT'){
+    } else if (this.searchData == 'ZHVIBT'){
       this.searchDataTitle = 'Value of Bottom 33% of Homes'
-    }  else if (this.searchData == 'MT'){
+    }  else if (this.searchData == 'ZHVIMT'){
       this.searchDataTitle = 'Value of Middle 33% of Homes'
-    } else if (this.searchData == "TT") {
+    } else if (this.searchData == "ZHVITT") {
       this.searchDataTitle = "Value of Top 33% of Homes"
     }
   }
@@ -78,16 +78,16 @@ export class ViewComponent implements OnInit {
   }
 
   ngOnInit() {
-  	
+    
   }
 
   grabRentPerSquareFoot(id){
-  	this.http.get('https://www.quandl.com/api/v3/datasets/ZILL/Z' + id + '_RZSF.json?api_key=L2G7Ec6a-naz3StPLMBw').subscribe(response => {
-  		this.housingDataArray = response.json().dataset.data
+    this.http.get('https://www.quandl.com/api/v3/datasets/ZILLOW/Z' + id + '_ZRIFAH.json?api_key=L2G7Ec6a-naz3StPLMBw').subscribe(response => {
+      this.housingDataArray = response.json().dataset.data
       this.zipId = id
-  		console.log(this.housingDataArray)
-  		this.makeChart()
-  	})
+      console.log(this.housingDataArray)
+      this.makeChart()
+    })
   }
 
   makeChart(){
@@ -191,7 +191,7 @@ export class ViewComponent implements OnInit {
         chart[0].remove()
         this.determineTitle()
         console.log(this.searchDataTitle)
-        this.http.get('https://www.quandl.com/api/v3/datasets/ZILL/Z' + this.zipId + '_' + this.searchData + '.json?api_key=L2G7Ec6a-naz3StPLMBw').subscribe(response => {
+        this.http.get('https://www.quandl.com/api/v3/datasets/ZILLOW/Z' + this.zipId + '_' + this.searchData + '.json?api_key=L2G7Ec6a-naz3StPLMBw').subscribe(response => {
           this.housingDataArray = response.json().dataset.data
           this.makeChart()
 
@@ -199,6 +199,5 @@ export class ViewComponent implements OnInit {
 
 
   }
-
 
 }
